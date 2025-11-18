@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+Scripts/
+include/
+Lib/
+
+# Virtual environment config
+pyvenv.cfg
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+# db.sqlite3
+media/
+staticfiles/
+
+# If using Django collectstatic
+/static/
+static_root/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage and testing
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+coverage.xml
+*.log
+
+# Migrations (optional, if you don't want to track them)
+# **Be careful: usually you DO want migrations in Git**
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+
+# Environment variables
+.production.env
+
+# Ignore share directory
+share/
