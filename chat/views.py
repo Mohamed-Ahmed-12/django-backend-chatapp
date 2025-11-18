@@ -20,7 +20,7 @@ class TextMessageViewset(viewsets.ModelViewSet):
     queryset = TextMessage.objects.all()
     serializer_class = TextMessageSerializer
     pagination_class = MessagesPagination
-    # permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated,]
     
     @action(detail=False, methods=["get"], url_path="room/(?P<room_id>[^/.]+)")
     def get_room_messages(self, request, room_id=None):
@@ -61,7 +61,7 @@ class TextMessageViewset(viewsets.ModelViewSet):
         }, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_user_rooms(request, user_id):
     rooms = (
         Room.objects.filter(users__id=user_id)

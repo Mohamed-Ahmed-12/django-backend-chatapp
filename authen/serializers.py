@@ -1,4 +1,10 @@
 from rest_framework import serializers
+from typing import Any
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken 
+from rest_framework_simplejwt.settings import api_settings
+from django.contrib.auth.models import update_last_login
+
 from .models import CustomUser
 
 # For user registration
@@ -34,25 +40,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = [
-            "id",
             "email",
             "username",
             "first_name",
             "last_name",
-            "date_joined",
-            "last_login",
-            "is_active",
             "primary_lng"
         ]
-        read_only_fields = ["id", "date_joined", "last_login"]
-
-
-
-from typing import Any
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.tokens import RefreshToken 
-from rest_framework_simplejwt.settings import api_settings
-from django.contrib.auth.models import update_last_login
 
 # For Custom Token serializer
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

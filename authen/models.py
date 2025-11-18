@@ -6,15 +6,12 @@ class PrimaryLanguage(models.TextChoices):
     """
     Enum for Supported languages in chat 
     """
-    English = 'en', 'English'
-    Arabic = 'ar', 'Arabic'
-    
-# Operation,Code Example,Output/Result
-# Set a Value,     user.primary_lng = PrimaryLanguage.Arabic,      Sets the field's value to the string 'ar'.
-# Check a Value    user.primary_lng == PrimaryLanguage.English:,   Checks if the stored string is 'en'.
-# Get DB Value,    PrimaryLanguage.Arabic.value,                   Returns the string 'ar'.
-# Get Label,       PrimaryLanguage.Arabic.label,                   Returns the string 'Arabic'.
-# Get Display,     user.get_primary_lng_display(),                 Returns the human-readable string 'English' (or 'Arabic') by using Django's built-in helper method.
+    English = 'eng_Latn', 'English'
+    Arabic = 'arb_Arab', 'Arabic'
+    French = 'fra_Latn', 'French'
+    German = 'deu_Latn', 'German'
+    Russian = 'rus_Cyrl', 'Russian'
+
 
 class CustomUser(AbstractUser):
-    primary_lng = models.CharField(verbose_name="Primary Language" , max_length=3 , choices=PrimaryLanguage.choices ,default=PrimaryLanguage.English )
+    primary_lng = models.CharField(verbose_name="Primary Language" , max_length=25 , choices=PrimaryLanguage.choices ,default=PrimaryLanguage.English )
