@@ -9,7 +9,7 @@ from .models import CustomUser
 
 # For user registration
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password_confirm = serializers.CharField(write_only=True)
+    confirm_pass = serializers.CharField(write_only=True)
 
     class Meta:
         model = CustomUser
@@ -17,22 +17,25 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "email",
             "username",
             "password",
-            "password_confirm",
+            "confirm_pass",
             "first_name",
             "last_name",
-            "primary_lng"
+            "primary_lng",
+            "pic"
         ]
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "confirm_pass": {"write_only": True},
+        }
 
     def validate(self, attrs):
-        if attrs["password"] != attrs["password_confirm"]:
+        if attrs["password"] != attrs["confirm_pass"]:
             raise serializers.ValidationError(
-                {"password_confirm": "Passwords do not match."}
+                {"confirm_pass": "Passwords do not match."}
             )
         return attrs
-
     def create(self, validated_data):
-        validated_data.pop("password_confirm")
+        validated_data.pop("confirm_pass")
         return CustomUser.objects.create_user(**validated_data)
 
 # For user profile (read-only)
@@ -44,7 +47,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "username",
             "first_name",
             "last_name",
-            "primary_lng"
+            "primary_lng",
+            "pic",
+            "is_searchable"
         ]
 
 # For Custom Token serializer
@@ -66,3 +71,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             update_last_login(None, self.user)
 
         return data
+
+class PrivacySettingSerializer(serializers.Serializer):
+    is_searchable = serializers.BooleanField(required=True)

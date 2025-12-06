@@ -15,3 +15,5 @@ class PrimaryLanguage(models.TextChoices):
 
 class CustomUser(AbstractUser):
     primary_lng = models.CharField(verbose_name="Primary Language" , max_length=25 , choices=PrimaryLanguage.choices ,default=PrimaryLanguage.English )
+    pic = models.ImageField(upload_to='userimgs',blank=True,null=True)
+    is_searchable = models.BooleanField(default=True, help_text="enable public user",blank=True,null=True)

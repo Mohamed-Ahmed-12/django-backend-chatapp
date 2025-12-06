@@ -48,65 +48,65 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = []
 
 # Logging
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": True,
-    # --- Formatters ---
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-        "consumer_fmt": {
-            "format": "{levelname} {asctime} [Consumer:{module}] {message}",
-            "style": "{",
-        },
-    },
-    # --- Handlers ---
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-            "level": "INFO",
-        },
-        "file": {
-            "class": "logging.FileHandler",
-            "filename": "application.log",
-            "formatter": "verbose",
-            "level": "DEBUG",
-        },
-        "chat_consumer_file": {  # Dedicated file for high-volume chat logs
-            "class": "logging.FileHandler",
-            "filename": "chat_consumers.log",
-            "formatter": "consumer_fmt",
-            "level": "INFO",
-        },
-    },
-    # --- Loggers ---
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
-        },
-        # Custom logger for your chat application logic
-        "chat.consumers": {
-            "handlers": ["console", "chat_consumer_file"],
-            "level": "DEBUG",
-            "propagate": False,
-        },
-        # Catch-all logger for any logger in your custom code
-        "": {
-            "handlers": ["console", "file"],
-            "level": "WARNING",
-            "propagate": False,
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": True,
+#     # --- Formatters ---
+#     "formatters": {
+#         "verbose": {
+#             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {message}",
+#             "style": "{",
+#         },
+#         "consumer_fmt": {
+#             "format": "{levelname} {asctime} [Consumer:{module}] {message}",
+#             "style": "{",
+#         },
+#     },
+#     # --- Handlers ---
+#     "handlers": {
+#         "console": {
+#             "class": "logging.StreamHandler",
+#             "formatter": "simple",
+#             "level": "INFO",
+#         },
+#         "file": {
+#             "class": "logging.FileHandler",
+#             "filename": "application.log",
+#             "formatter": "verbose",
+#             "level": "DEBUG",
+#         },
+#         "chat_consumer_file": {  # Dedicated file for high-volume chat logs
+#             "class": "logging.FileHandler",
+#             "filename": "chat_consumers.log",
+#             "formatter": "consumer_fmt",
+#             "level": "INFO",
+#         },
+#     },
+#     # --- Loggers ---
+#     "loggers": {
+#         "django": {
+#             "handlers": ["console"],
+#             "level": "INFO",
+#             "propagate": True,
+#         },
+#         # Custom logger for your chat application logic
+#         "chat.consumers": {
+#             "handlers": ["console", "chat_consumer_file"],
+#             "level": "DEBUG",
+#             "propagate": False,
+#         },
+#         # Catch-all logger for any logger in your custom code
+#         "": {
+#             "handlers": ["console", "file"],
+#             "level": "WARNING",
+#             "propagate": False,
+#         },
+#     },
+# }
 
 # Application definition
 
@@ -201,7 +201,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # For development
+STATIC_ROOT = BASE_DIR / "staticfiles"   # For production (collectstatic) python manage.py collectstatic
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

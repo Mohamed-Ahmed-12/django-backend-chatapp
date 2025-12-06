@@ -60,3 +60,4 @@ class TextMessage(models.Model):
             raise ValidationError({'text': 'Message cannot be empty or just whitespace.'})
         if len(self.text) > 255:
             raise ValidationError({'text': 'Message cannot exceed 255 characters.'})
+        

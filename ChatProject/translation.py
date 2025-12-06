@@ -10,6 +10,8 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model = model.to(device)
 
 def translate(text, src="eng_Latn", tgt="arb_Arab"):
+    if src == tgt: # avoid translate same language
+        return text
     tokenizer.src_lang = src
     inputs = tokenizer(text, return_tensors="pt").to(device)
     translated = model.generate(
